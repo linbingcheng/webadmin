@@ -1,0 +1,204 @@
+
+*, :after, :before {
+  box-sizing: border-box;
+}
+* {
+  -webkit-tap-highlight-color: transparent;
+  font-family: "Microsoft YaHei",tahoma,verdana,sans-serif;
+  font-size: 12px;
+}
+
+//Main
+.main {
+  background-color: #fff;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  .sidebar-menu{
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 21;
+    transition: width .3s;
+    background-color: #304156;
+    .logo{
+      padding: 8px;
+      text-align: center;
+      .max-logo{
+        width: 161.5px;
+        height: 44px;
+      }
+      .min-logo{
+        width: 44px;
+        height: 44px;
+      }
+    }
+  }
+  .header{
+    box-sizing: border-box;
+    position: fixed;
+    display: block;
+    padding-left: 200px;
+    width: 100%;
+    height: 100px;
+    z-index: 20;
+    box-shadow: 0 2px 1px 1px rgba(100, 100, 100, 0.1);
+    transition: padding .3s;
+    .main-header {
+      height: 60px;
+      background: #fff;
+      box-shadow: 0 2px 1px 1px rgba(100, 100, 100, 0.1);
+      position: relative;
+      z-index: 11;
+    }
+  }
+  .page-content{
+    left: 200px;
+    position: absolute;
+    top: 100px;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    background-color: #F0F0F0;
+    z-index: 1;
+    transition: left .3s;
+    .single-page{
+      position: absolute;
+      overflow: visible;
+      left: 0;
+      background-color: #fff;
+      width: 100%;
+    }
+  }
+}
+
+//ShrinkableMenu
+.shrinkable-menu {
+  .el-menu{
+    border-right-width: 0;
+  }
+}
+
+//HamBar
+.navicon {
+  margin: 15px;
+  display: inline-block;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+}
+
+//BreadCrumbs
+.bread-crumbs {
+  position: absolute;
+  left: 60px;
+  top: 0;
+  right: 340px;
+  bottom: 0;
+  padding: 10px;
+  overflow: hidden;
+  .el-breadcrumb {
+    line-height: 40px;
+  }
+}
+
+//ToolMenu
+.toolmenu {
+  position: absolute;
+  right: 200px;
+  top: 0;
+  height: 100%;
+  line-height: 60px;
+  .menu-item {
+    display: inline-block;
+    width: 50px;
+    text-align: center;
+    cursor: pointer;
+    .is-fixed {
+      top: 20px;
+    }
+  }
+  .el-input{
+    width: 200px;
+    margin-right: 5px;
+    .el-input__inner{
+      border-radius: 15px;
+      height: 30px;
+      line-height: 30px;
+    }
+    .el-input__suffix {
+      cursor: pointer;
+    }
+  }
+}
+
+//UserCol
+.user-col{
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  line-height: 60px;
+  .username{
+    display: inline-block;
+    vertical-align: top;
+  }
+  .user-image{
+    display: inline-block;
+    margin: 10px 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+  }
+}
+
+//TagBar
+.tags{
+  position: relative;
+  top: 8px;
+  left: 5px;
+  width: 100%;
+  height: 40px;
+  .tags-outer-scroll-bar{
+    position: relative;
+    box-sizing: border-box;
+    padding-right: 120px;
+    width: 100%;
+    height: 100%;
+    top: -2px;
+    .tags-inner-scroll-body{
+      position: absolute;
+      padding: 2px;
+      overflow: visible;
+      white-space: nowrap;
+      transition: left .3s ease;
+      .el-tag--medium {
+        margin-right: 5px;
+      }
+      .tag-title{
+        display: inline-flex;
+        max-width: 60px;
+        white-space:nowrap;
+        overflow:hidden;
+        margin-left: 5px;
+      }
+      .selected {
+        color: rgb(64, 158, 255);
+      }
+    }
+    .close-tag-menu{
+      position: absolute;
+      right: 0;
+      top: -8px;
+      box-sizing: border-box;
+      padding-top: 8px;
+      text-align: center;
+      width: 120px;
+      height: 100%;
+      background: white;
+      box-shadow: -3px 0 15px 3px rgba(0, 0, 0, .1);
+      z-index: 10;
+    }
+  }
+}
