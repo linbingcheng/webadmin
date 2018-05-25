@@ -69,6 +69,7 @@
       left: 0;
       background-color: #fff;
       width: 100%;
+      padding: 20px 10px;
     }
   }
 }
@@ -178,7 +179,7 @@
       }
       .tag-title{
         display: inline-flex;
-        max-width: 60px;
+        //max-width: 60px;
         white-space:nowrap;
         overflow:hidden;
         margin-left: 5px;

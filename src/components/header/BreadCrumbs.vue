@@ -4,11 +4,12 @@
       <transition-group name="breadcrumb">
         <el-breadcrumb-item
           v-for="item in levelList"
-          :key="item.title">
-        <span v-if="item.redirect==='noredirect'" class="no-redirect">
-          {{item.title}}
-        </span>
-          <router-link v-else :to="item.name">{{item.title}}</router-link>
+          :key="item.name">
+          <span v-if="item.redirect==='noredirect'" class="no-redirect">
+            {{item.title}}
+          </span>
+          <!--<router-link v-else :to="item.name">{{item.title}}</router-link>-->
+          <span v-else :to="item.name">{{item.title}}</span>
         </el-breadcrumb-item>
       </transition-group>
     </el-breadcrumb>

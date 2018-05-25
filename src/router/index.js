@@ -55,10 +55,7 @@ router.beforeEach((to, from, next) => {
 
 router.afterEach((to) => {
   const toRouter = Utils.getRouterObjByName([otherRouter, appRouter], to.name);
-  console.log(toRouter);
-  if (router !== null) {
-    Utils.openNewPage(router.app, toRouter);
-  }
+  Utils.openNewPage(router.app, toRouter);
   window.scrollTo(0, 0);
 });
 
