@@ -3,7 +3,7 @@
   <div class="main" :class="{'main-hide-text': isCollapse}">
       <div class="sidebar-menu"
            :style="{width: isCollapse?'64px':'200px', overflow: isCollapse ? 'visible' : 'auto'}">
-        <shrinkable-menu :menuList="menuList" :isCollapse="isCollapse" :menuSelect="leftMenuSelect">
+        <shrinkable-menu :menuList="menuList" :isCollapse="isCollapse">
           <div slot="top" class="logo">
             <img v-show="!isCollapse"  src="../assets/images/logo.jpg" class="max-logo"/>
             <img v-show="isCollapse" src="../assets/images/logo-min.jpg" class="min-logo"/>
@@ -71,9 +71,6 @@ export default{
     messages() {
       return this.$store.state.user.messages;
     },
-    cachePage() {
-      return this.$store.state.app.cachePage;
-    },
     bgColor() {
       return this.theme === 'dark' ? '#304156' : '#fff';
     },
@@ -103,9 +100,6 @@ export default{
         this.pageBodyTop = -10;
       }
       this.pageBodyTop = top;
-    },
-    leftMenuSelect(key, keyPath) {
-      this.$store.commit('PUSH_LEVEL_LIST', keyPath);
     },
   },
   data() {

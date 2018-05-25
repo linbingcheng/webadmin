@@ -8,72 +8,42 @@ const app = {
     levelList: [{
       redirect: true,
       title: '首页',
-      name: 'home_index',
+      name: 'index',
+      index: '1',
     }],
     menuList: [
       {
         index: '1',
-        name: 'home_index',
+        name: 'index',
         icon: 'el-icon-menu',
         title: '测试1',
         children: [],
-        isSingle: true,
       },
       {
         index: '2',
-        name: 'home_index',
+        name: 'index',
         icon: 'el-icon-menu',
         title: '测试2',
         children: [{
           index: '2-1',
           name: 'test',
           title: '测试2-1',
-          isSingle: true,
         }, {
           index: '2-2',
-          name: 'home_index',
+          name: 'test2',
           title: '测试2-2',
-          isSingle: true,
-        }],
-      },
-      {
-        index: '3',
-        name: 'home_index',
-        icon: 'el-icon-menu',
-        title: '测试3',
-        children: [],
-        isSingle: true,
-      },
-      {
-        index: '4',
-        name: 'home_index',
-        icon: 'el-icon-menu',
-        title: '测试4',
-        children: [{
-          index: '4-1',
-          name: 'test',
-          title: '测试4-1',
-          isSingle: true,
-        }, {
-          index: '4-2',
-          name: 'test',
-          title: '测试4-2',
-          isSingle: true,
         }],
       },
     ],
     routers: [
       otherRouter,
-      ...appRouter,
+      appRouter,
     ],
     tagsList: [{
       title: '首页',
-      path: '',
       name: 'home_index',
-      isSingle: true,
       isSelect: true,
     }],
-    cachePage: [],
   },
   mutations: {
     TOGGLE_SIDEBAR: (state) => {
@@ -84,50 +54,56 @@ const app = {
       }
       state.isCollapse = !state.isCollapse;
     },
-    PUSH_LEVEL_LIST: (state, list) => {
-      state.levelList = list;
-      if (list.length === 1) {
+    PUSH_LEVEL_LIST: (state, name) => {
+      let existRount = false;
+      let hasChildrenFlag = false;
+      // 遍历所有的router 查找 router 的title 设置给面包屑
+      // 后期修改应该是遍历 router.js 中的appRouter 和 otherRouter 查找 title
+      if (name === 'home_index') {
+        state.levelList = [{
+          redirect: true,
+          title: '首页',
+          name: 'index',
+        }];
+        existRount = true;
+      }
+      if (!existRount) {
         state.menuList.some((item) => {
-          if (item.index === list[0]) {
-            state.levelList = [{
-              redirect: true,
-              title: item.title,
-              name: item.name,
-            }];
-            return true;
+          if ((item.children === undefined || item.children.length === 0)) {
+            if (item.name === name) {
+              state.levelList = [{
+                redirect: true,
+                title: item.title,
+                name: item.name,
+              }];
+              existRount = true;
+              return true;
+            }
+            return false;
           }
-          return false;
-        });
-      } else {
-        state.menuList.some((item) => {
-          if (item.index === list[0]) {
-            item.children.some((childItem) => {
-              if (childItem.index === list[1]) {
-                state.levelList = [{
-                  redirect: 'noredirect',
-                  title: item.title,
-                  name: item.name,
-                }, {
-                  redirect: true,
-                  title: childItem.title,
-                  name: childItem.name,
-                }];
-                return true;
-              }
-              return false;
-            });
-            return true;
-          }
-          return false;
+          item.children.some((childItem) => {
+            if (childItem.name === name) {
+              state.levelList = [{
+                redirect: 'noredirect',
+                title: item.title,
+                name: item.name,
+              }, {
+                redirect: true,
+                title: childItem.title,
+                name: childItem.name,
+              }];
+              existRount = true;
+              hasChildrenFlag = true;
+              return true;
+            }
+            return false;
+          });
+          return hasChildrenFlag;
         });
       }
-    },
-    CLOSE_PAGE(state, name) {
-      state.cachePage.forEach((item, index) => {
-        if (item === name) {
-          state.cachePage.splice(index, 1);
-        }
-      });
+      if (!existRount) {
+        // 此处遍历其他任何存在的router
+      }
     },
   },
   actions: {

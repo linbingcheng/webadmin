@@ -9,7 +9,7 @@
            :style="{left: tagBodyLeft + 'px'}">
         <el-tag
           v-for="(tag, index) in tags"
-          :key="tag.name"
+          :key="tag.index"
           type="info"
           size="medium"
           @close="closeTag(index,lastSelectIndex())"
@@ -90,18 +90,19 @@ export default {
     closeTag(index, lastSecelct) {
       if (index === lastSecelct) {
         this.tags[0].isSelect = true;
+        if (this.afterCloseTag instanceof Function) {
+          this.afterCloseTag();
+        }
       }
       this.tags.splice(index, 1);
-      if (this.afterCloseTag instanceof Function) {
-        this.afterCloseTag();
-      }
     },
     selectTag(index, lastSecelct) {
       this.tags[lastSecelct].isSelect = false;
       this.tags[index].isSelect = true;
-      if (this.afterSelectTag instanceof Function) {
-        this.afterSelectTag();
-      }
+      this.$store.commit('PUSH_LEVEL_LIST', this.tags[index].name);
+      this.$router.push({
+        name: this.tags[index].name,
+      });
     },
     closeTags(command) {
       let selectIndex = 0;
@@ -114,7 +115,6 @@ export default {
       });
       if (selectIndex === 0) {
         this.tags.splice(1, this.tags.length - 1);
-        console.log(this.tags);
         if (this.afterCloseAllTags instanceof Function) {
           this.afterCloseAllTags();
         }

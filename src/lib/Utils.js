@@ -47,29 +47,33 @@ Utils.toDefaultPage = (routers, name, route, next) => {
 
 
 Utils.openNewPage = (vm, router) => {
+  if (router === null) {
+    return;
+  }
+  vm.$store.commit('PUSH_LEVEL_LIST', router.name);
   const tagsList = vm.$store.state.app.tagsList;
   let tagHasOpened = false;
-  let isSingle = false;
-  let prototypeNum = 0;
   tagsList.every((item, index) => {
     if (item.isSelect) {
       tagsList[index].isSelect = false;
     }
     if (item.name === router.name) {
-      tagsList[index].isSelect = true;
-      isSingle = item.isSingle;
       tagHasOpened = true;
-      prototypeNum += 1;
     }
     return true;
   });
-  if (!isSingle || !tagHasOpened) {
+  if (!tagHasOpened) {
     tagsList.push({
-      title: router.title + ((!isSingle && prototypeNum !== 0) ? `(${prototypeNum})` : ''),
-      path: router.path,
+      title: router.title,
       name: router.name,
-      isSingle: router.isSingle,
       isSelect: true,
+    });
+  } else {
+    tagsList.every((item, index) => {
+      if (item.name === router.name) {
+        tagsList[index].isSelect = true;
+      }
+      return true;
     });
   }
 };
