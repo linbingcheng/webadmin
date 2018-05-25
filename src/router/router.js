@@ -24,10 +24,13 @@ export const otherRouter = {
     path: 'index',
     name: 'home_index',
     title: '首页',
+    isSingle: true,
     component: () => import('@/components/views/Index'),
   }, {
     path: 'test',
     name: 'test',
+    title: '测试页面',
+    isSingle: false,
     component: () => import('@/components/views/TestVue'),
   }],
 };

@@ -8,7 +8,7 @@
         <span v-if="item.redirect==='noredirect'" class="no-redirect">
           {{item.title}}
         </span>
-          <router-link v-else :to="item.path">{{item.title}}</router-link>
+          <router-link v-else :to="item.name">{{item.title}}</router-link>
         </el-breadcrumb-item>
       </transition-group>
     </el-breadcrumb>

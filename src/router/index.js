@@ -1,7 +1,8 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import { routes } from '@/router/router';
+import { routes, otherRouter, appRouter } from '@/router/router';
 import Cookies from 'js-cookie';
+import Utils from '@/lib/Utils';
 
 Vue.use(VueRouter);
 
@@ -36,6 +37,7 @@ router.beforeEach((to, from, next) => {
   // 一般判断cookie,注意防止死循环，因为next会重新触发beforEach
   // 登录判断
   if (!Cookies.get('user') && to.name !== 'login') {
+    Utils.replaceTitle(to.meta.title);
     next({
       replace: true,
       name: 'login',
@@ -52,11 +54,11 @@ router.beforeEach((to, from, next) => {
 
 
 router.afterEach((to) => {
-  console.log(router.app);
-  console.log(to.name);
-  console.log(to.params);
-  console.log(to.query);
-  console.log('finish');
+  const toRouter = Utils.getRouterObjByName([otherRouter, appRouter], to.name);
+  console.log(toRouter);
+  if (router !== null) {
+    Utils.openNewPage(router.app, toRouter);
+  }
   window.scrollTo(0, 0);
 });
 

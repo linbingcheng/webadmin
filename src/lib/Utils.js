@@ -1,15 +1,4 @@
-import Cookies from 'js-cookie';
-
 const Utils = {};
-
-Utils.login = () => {
-  // 登录页登录成功后的操作，先挪到这测试
-  Cookies.set('user', 'bingchenglin');
-};
-
-Utils.logout = () => {
-  Cookies.remove('user');
-};
 
 Utils.replaceTitle = (title) => {
   const newtitle = title || 'WEB ADMIN';
@@ -55,5 +44,35 @@ Utils.toDefaultPage = (routers, name, route, next) => {
     next();
   }
 };
+
+
+Utils.openNewPage = (vm, router) => {
+  const tagsList = vm.$store.state.app.tagsList;
+  let tagHasOpened = false;
+  let isSingle = false;
+  let prototypeNum = 0;
+  tagsList.every((item, index) => {
+    if (item.isSelect) {
+      tagsList[index].isSelect = false;
+    }
+    if (item.name === router.name) {
+      tagsList[index].isSelect = true;
+      isSingle = item.isSingle;
+      tagHasOpened = true;
+      prototypeNum += 1;
+    }
+    return true;
+  });
+  if (!isSingle || !tagHasOpened) {
+    tagsList.push({
+      title: router.title + ((!isSingle && prototypeNum !== 0) ? `(${prototypeNum})` : ''),
+      path: router.path,
+      name: router.name,
+      isSingle: router.isSingle,
+      isSelect: true,
+    });
+  }
+};
+
 
 export default Utils;

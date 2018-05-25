@@ -8,51 +8,57 @@ const app = {
     levelList: [{
       redirect: true,
       title: '首页',
-      path: '/',
+      name: 'home_index',
     }],
     menuList: [
       {
         index: '1',
-        path: '/test',
+        name: 'home_index',
         icon: 'el-icon-menu',
         title: '测试1',
         children: [],
+        isSingle: true,
       },
       {
         index: '2',
-        path: '/home',
+        name: 'home_index',
         icon: 'el-icon-menu',
         title: '测试2',
         children: [{
           index: '2-1',
-          path: '/test',
+          name: 'test',
           title: '测试2-1',
+          isSingle: true,
         }, {
           index: '2-2',
-          path: '/test',
+          name: 'home_index',
           title: '测试2-2',
+          isSingle: true,
         }],
       },
       {
         index: '3',
-        path: '/home',
+        name: 'home_index',
         icon: 'el-icon-menu',
         title: '测试3',
         children: [],
+        isSingle: true,
       },
       {
         index: '4',
-        path: '/home',
+        name: 'home_index',
         icon: 'el-icon-menu',
         title: '测试4',
         children: [{
           index: '4-1',
-          path: '/home',
+          name: 'test',
           title: '测试4-1',
+          isSingle: true,
         }, {
           index: '4-2',
-          path: '/home',
+          name: 'test',
           title: '测试4-2',
+          isSingle: true,
         }],
       },
     ],
@@ -63,7 +69,8 @@ const app = {
     tagsList: [{
       title: '首页',
       path: '',
-      name: 'home',
+      name: 'home_index',
+      isSingle: true,
       isSelect: true,
     }],
     cachePage: [],
@@ -85,7 +92,7 @@ const app = {
             state.levelList = [{
               redirect: true,
               title: item.title,
-              path: item.path,
+              name: item.name,
             }];
             return true;
           }
@@ -99,11 +106,11 @@ const app = {
                 state.levelList = [{
                   redirect: 'noredirect',
                   title: item.title,
-                  path: item.path,
+                  name: item.name,
                 }, {
                   redirect: true,
                   title: childItem.title,
-                  path: childItem.path,
+                  name: childItem.name,
                 }];
                 return true;
               }

@@ -55,7 +55,7 @@ export default {
   },
   methods: {
     isHome(name) {
-      return name === 'home';
+      return name === 'home_index';
     },
     lastSelectIndex() {
       for (let index = 0; index < this.tags.length; index += 1) {

@@ -79,7 +79,6 @@ export default {
   },
   methods: {
     login(formName) {
-      console.log(this.$refs[formName]);
       this.$refs[formName].validate((valid) => {
         if (valid) {
           // TODO 登录校验后端校验
