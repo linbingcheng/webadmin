@@ -45,6 +45,11 @@ Utils.toDefaultPage = (routers, name, route, next) => {
   }
 };
 
+Utils.gotoIndex = (vm) => {
+  vm.$router.push({
+    name: 'home_index',
+  });
+};
 
 Utils.openNewPage = (vm, router) => {
   if (router === null) {

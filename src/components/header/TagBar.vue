@@ -35,6 +35,8 @@
 </template>
 
 <script>
+import Utils from '@/lib/Utils';
+
 export default {
   name: 'tagBar',
   data() {
@@ -90,9 +92,7 @@ export default {
     closeTag(index, lastSecelct) {
       if (index === lastSecelct) {
         this.tags[0].isSelect = true;
-        if (this.afterCloseTag instanceof Function) {
-          this.afterCloseTag();
-        }
+        Utils.gotoIndex(this);
       }
       this.tags.splice(index, 1);
     },
@@ -123,16 +123,11 @@ export default {
       if (command === 'all') {
         this.tags.splice(1, this.tags.length - 1);
         this.tags[0].isSelect = true;
-        if (this.afterCloseAllTags instanceof Function) {
-          this.afterCloseAllTags();
-        }
+        Utils.gotoIndex(this);
       } else {
         const tag = this.tags[selectIndex];
         this.tags.splice(1, this.tags.length - 1);
         this.tags.push(tag);
-        if (this.afterCloseOtherTags instanceof Function) {
-          this.afterCloseOtherTags();
-        }
       }
     },
   },
